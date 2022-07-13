@@ -1,14 +1,9 @@
 ---
-description: Orchestrating the run of pipelines
+description: Implement a custom orchestrator
 ---
 
-The orchestrator is one of the most critical components of your stack, as it
-defines where the actual pipeline job runs. It controls how and where each
-individual step within a pipeline is executed. Therefore, the orchestrator can
-be used to great effect to scale jobs into production.
-
 {% hint style="warning" %}
-Before reading this chapter, make sure that you are familiar with the
+Before reading this page, make sure that you are familiar with the
 concept of [stacks, stack components and their flavors](../advanced-guide/stacks-components-flavors.md).  
 {% endhint %}
 
@@ -69,31 +64,6 @@ This is a slimmed-down version of the base implementation which aims to
 highlight the abstraction layer. In order to see the full implementation 
 and get the complete docstrings, please check [the source code on GitHub](https://github.com/zenml-io/zenml/blob/main/src/zenml/orchestrators/base_orchestrator.py).
 {% endhint %}
-
-## List of available orchestrators
-
-Out of the box, ZenML comes with a `LocalOrchestrator` implementation, which
-is a simple implementation for running your pipelines locally.
-
-Moreover, additional orchestrators can be found in specific `integrations`
-modules, such as the `AirflowOrchestrator` in the `airflow` integration and the
-`KubeflowOrchestrator` in the `kubeflow` integration.
-
-|                                                                                                                                                                     | Flavor   | Integration |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|-------------|
-| [LocalOrchestrator](https://apidocs.zenml.io/latest/api_docs/orchestrators/#zenml.orchestrators.local.local_orchestrator.LocalOrchestrator)                         | local    | `built-in`  |
-| [AirflowOrchestrator](https://apidocs.zenml.io/latest/api_docs/integrations/#zenml.integrations.airflow.orchestrators.airflow_orchestrator.AirflowOrchestrator)     | airflow  | airflow     |
-| [KubeflowOrchestrator](https://apidocs.zenml.io/latest/api_docs/integrations/#zenml.integrations.kubeflow.orchestrators.kubeflow_orchestrator.KubeflowOrchestrator) | kubeflow | kubeflow    |
-| [KubernetesOrchestrator](https://apidocs.zenml.io/latest/api_docs/integrations/#zenml.integrations.kubernetes.orchestrators.kubernetes_orchestrator.KubernetesOrchestrator) | kubernetes  | kubernetes    |
-| [VertexAIOrchestrator](https://apidocs.zenml.io/latest/api_docs/integrations/#zenml.integrations.gcp.orchestrators.vertex_orchestrator.VertexOrchestrator)          | vertex   | gcp         |
-| [GitHubActionsOrchestrator](https://apidocs.zenml.io/latest/api_docs/integrations/#zenml.integrations.github.orchestrators.github_actions_orchestrator.GitHubActionsOrchestrator) | github  | github    |
-
-If you would like to see the available flavors for artifact stores, you can
-use the command:
-
-```shell
-zenml orchestrator flavor list
-```
 
 ## Build your own custom orchestrator
 

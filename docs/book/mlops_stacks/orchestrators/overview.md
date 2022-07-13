@@ -1,13 +1,35 @@
 ---
-description: Deploy pipelines to production.
+description: Orchestrate Machine Learning pipelines
 ---
 
-- `What is it, what does it do`
-- `Why would you want to use it`
-- `When should you start adding this to your stack`
-- `Overview of flavors, tradeoffs, when to use which flavor (table)`
+## When to use it
 
-# Run your Pipeline on Kubeflow
+## Orchestrator Flavors
+
+
+| Orchestrator         | Flavor    | Integration    | Notes |
+|----------------------------|-----------|----------------|-------------|
+| [LocalOrchestrator](./local.md)   | local   | _built-in_     | Runs your pipelines locally. |
+| [KubernetesOrchestrator](./kubernetes.md) | kubernetes | kubernetes     | Runs your pipelines in Kubernetes clusters. |
+| [KubeflowOrchestrator](./kubeflow.md)       | kubeflow       | kubeflow     | Runs your pipelines using Kubeflow. |
+| [VertexOrchestrator](./gcloud_vertexai.md)     | vertex     | gcp     | Runs your pipelines in Vertex AI. |
+| [AirflowOrchestrator](./airflow.md)    | airflow    | airflow     | Runs your pipelines locally using Airflow. |
+| [GitHubActionsOrchestrator](./github_actions.md)    | github    | github     | Runs your pipelines using GitHub Actions. |
+
+If you would like to see the available flavors of orchestrators, you can 
+use the command:
+
+```shell
+zenml orchestrator flavor list
+```
+
+<!-- The orchestrator is one of the most critical components of your stack, as it
+defines where the actual pipeline job runs. It controls how and where each
+individual step within a pipeline is executed. Therefore, the orchestrator can
+be used to great effect to scale jobs into production. -->
+
+
+<!-- # Run your Pipeline on Kubeflow
 
 [Kubeflow Pipelines](https://www.kubeflow.org/docs/components/pipelines/introduction/) is a pipeline orchestrator built for machine learning workflows. When developing ML models, you probably develop [your pipelines](../extending-zenml/getting-started.md#pipeline) on your local machine initially as this allows for quicker iteration and debugging. However, at a certain point when you are finished with its design, you might want to transition to a more production-ready setting and deploy the pipeline to a more robust environment.
 
@@ -141,7 +163,7 @@ Additionally, you might also want to define a `.dockerignore` to make sure only 
 def mnist_pipeline(...)
 ```
 
-We can now run the pipeline by simply executing the Python script:
+We can now run the pipeline by executing the Python script:
 
 ```bash
 python run.py
@@ -188,4 +210,4 @@ There are lot's more things you do in production that you might consider adding 
 * [Using a secrets manager](manage-your-secrets.md) to store secret keys
   for use in your pipelines.
 
-ZenML will help with all of these and more. Check out our other guides to learn more!
+ZenML will help with all of these and more. Check out our other guides to learn more! -->

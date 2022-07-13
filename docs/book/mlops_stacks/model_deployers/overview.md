@@ -193,7 +193,7 @@ def my_step(my_service: MyService) -> ...:
 ```
 
 The ZenML integrations that provide Model Deployer stack components also include
-standard pipeline steps that can simply be inserted into any pipeline to achieve
+standard pipeline steps that can directly be inserted into any pipeline to achieve
 a continuous model deployment workflow. These steps take care of all the aspects
 of continuously deploying models to an external server and saving the Service
 configuration into the Artifact Store, where they can be loaded at a later time

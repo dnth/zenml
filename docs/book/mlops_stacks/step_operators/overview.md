@@ -1,5 +1,5 @@
 ---
-description: Execute individual steps in specialized environments.
+description: Execute individual steps in specialized environments
 ---
 
 The step operator enables the execution of individual pipeline steps in
@@ -7,13 +7,15 @@ specialized runtime environments that are optimized for certain workloads.
 These specialized environments can give your steps access to resources like 
 GPUs or distributed processing frameworks like [Spark](https://spark.apache.org/).
 
-Comparison to orchestrators:
+{% hint style="info" %}
+**Comparison to orchestrators:**
 The [orchestrator](../orchestrators/overview.md) is a mandatory stack component that is responsible 
 for executing all steps of a pipeline in the correct order and provide 
 additional features such as scheduling pipeline runs. The step operator 
 on the other hand is used to only execute individual steps of the pipeline 
 in a separate environment in case the environment provided by the orchestrator
 is not feasible.
+{% endhint %}
 
 ## When to use it
 
@@ -36,3 +38,10 @@ by the following ZenML integrations:
 | [Vertex](./gcloud_vertexai.md) | `vertex` | `gcp` |  Uses Vertex AI to execute steps |
 | [AzureML](./azureml.md) | `azureml` | `azure` |  Uses AzureML to execute steps |
 | [Custom Implementation](./custom.md) | _custom_ | | Extend the step operator abstraction and provide your own implementation |
+
+If you would like to see the available flavors of step operators, you can 
+use the command:
+
+```shell
+zenml step-operator flavor list
+```

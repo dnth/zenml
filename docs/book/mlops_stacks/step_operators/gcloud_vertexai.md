@@ -1,12 +1,12 @@
 ---
-description: Execute individual steps in Vertex AI.
+description: Execute individual steps in Vertex AI
 ---
 
 The Vertex step operator is a [step operator](./overview.md) flavor provided with
-the `gcp` ZenML integration that uses [Vertex AI](https://cloud.google.com/vertex-ai)
+the ZenML `gcp` integration that uses [Vertex AI](https://cloud.google.com/vertex-ai)
 to execute individual steps of ZenML pipelines.
 
-## When would you want to use it?
+## When to use it
 
 You should use the Vertex step operator if:
 * one or more steps of your pipeline require computing resources (CPU, GPU, memory) that are
@@ -14,20 +14,21 @@ not provided by your orchestrator.
 * you have access to Vertex AI. If you're using a different cloud provider, take 
 a look at the [Sagemaker](./amazon_sagemaker.md) or [AzureML](./azureml.md) step operators.
 
-## How do you deploy it?
+## How to deploy it
 
 * Enable Vertex AI [here](https://console.cloud.google.com/vertex-ai).
 * Create a [service account](https://cloud.google.com/iam/docs/service-accounts) with
 the right permissions to create Vertex AI jobs (`roles/aiplatform.admin`) and push 
 to the container registry (`roles/storage.admin`).
 
-## How to use it?
+## How to use it
 
 To use the Vertex step operator, we need:
 * The ZenML `gcp` integration installed. If you haven't done so, run 
     ```shell
     zenml integration install gcp
     ```
+* [Docker](https://www.docker.com) installed and running.
 * Vertex AI enabled and a service account file. See the [deployment section](#how-do-you-deploy-it)
 for detailed instructions.
 * A [GCR container registry](../container_registries/gcloud_gcr.md) as part of our stack.
@@ -36,7 +37,7 @@ Take a look [here](TODO) for a guide on how to set that up.
 See [here](https://cloud.google.com/vertex-ai/docs/training/configure-compute#machine-types)
 for a list of available machine types.
 
-
+We can then register the step operator and use it in our active stack:
 ```shell
 zenml step-operator register <NAME> \
     --flavor=vertex \

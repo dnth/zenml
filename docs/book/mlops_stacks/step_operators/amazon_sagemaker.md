@@ -1,12 +1,12 @@
 ---
-description: Execute individual steps in Sagemaker.
+description: Execute individual steps in Sagemaker
 ---
 
 The Sagemaker step operator is a [step operator](./overview.md) flavor provided with
-the `aws` ZenML integration that uses [Sagemaker](https://aws.amazon.com/sagemaker/)
+the ZenML `aws` integration that uses [Sagemaker](https://aws.amazon.com/sagemaker/)
 to execute individual steps of ZenML pipelines.
 
-## When would you want to use it?
+## When to use it
 
 You should use the Sagemaker step operator if:
 * one or more steps of your pipeline require computing resources (CPU, GPU, memory) that are
@@ -14,19 +14,20 @@ not provided by your orchestrator.
 * you have access to Sagemaker. If you're using a different cloud provider, take 
 a look at the [Vertex](./gcloud_vertexai.md) or [AzureML](./azureml.md) step operators.
 
-## How do you deploy it?
+## How to deploy it
 
 * Create a role in the IAM console that you want the jobs running in Sagemaker to assume.
 This role should at least have the `AmazonS3FullAccess` and `AmazonSageMakerFullAccess`
 policies applied. Check [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html#sagemaker-roles-create-execution-role) for a guide on how to set up this role.
 
-## How to use it?
+## How to use it
 
 To use the Sagemaker step operator, we need:
 * The ZenML `aws` integration installed. If you haven't done so, run 
     ```shell
     zenml integration install aws
     ```
+* [Docker](https://www.docker.com) installed and running.
 * An IAM role with the correct permissions. See the [deployment section](#how-do-you-deploy-it)
 for detailed instructions.
 * An [AWS container registry](../container_registries/amazon_ecr.md) as part of our stack.
@@ -38,6 +39,7 @@ See [here](https://docs.aws.amazon.com/sagemaker/latest/dg/notebooks-available-i
 for a list of available instance types.
 * (Optional) An experiment which is used to group Sagemaker runs. Check [this guide](https://docs.aws.amazon.com/sagemaker/latest/dg/experiments-create.html) to see how to create an experiment.
 
+We can then register the step operator and use it in our active stack:
 ```shell
 zenml step-operator register <NAME> \
     --flavor=sagemaker \
