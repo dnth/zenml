@@ -102,9 +102,10 @@ def main(pipeline):
             get_or_create_dataset=get_or_create_the_dataset,
             get_labeled_data=get_labeled_data(),
             convert_annotations=convert_annotations(),
-            model_trainer=fastai_model_trainer().with_return_materializers(
-                FastaiLearnerMaterializer
-            ),
+            # model_trainer=fastai_model_trainer().with_return_materializers(
+            #     FastaiLearnerMaterializer
+            # ),
+            model_trainer=pytorch_model_trainer(),
         ).run()
     elif pipeline == "inference":
         inference_pipeline(
