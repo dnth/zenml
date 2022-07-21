@@ -14,7 +14,6 @@
 from __future__ import division, print_function
 
 import os
-import tempfile
 import time
 from copy import deepcopy
 from pathlib import Path
@@ -23,19 +22,8 @@ from typing import Dict, List
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from fastai.data.transforms import get_image_files
-from fastai.learner import Learner
-from fastai.metrics import error_rate
-from fastai.vision.all import *  # noqa
-from fastai.vision.augment import Resize
-from fastai.vision.data import ImageDataLoaders
-from fastai.vision.learner import vision_learner
-from fastai.vision.models import squeezenet1_1
 from torchvision import datasets, models, transforms
 
-from zenml.integrations.label_studio.label_studio_utils import (
-    download_azure_image,
-)
 from zenml.logger import get_logger
 from zenml.steps import step
 from zenml.steps.step_context import StepContext
@@ -65,48 +53,6 @@ new_data_for_batch_inference = str(
     / "images"
     / "finetuning"
 )
-
-
-def is_aria(x: str) -> bool:
-    return x.startswith("ARIA_")
-
-
-@step(enable_cache=False)
-def fastai_model_trainer(
-    image_urls: List[str],
-    labels: List[Dict[str, str]],
-    context: StepContext,
-) -> Learner:
-    if labels:
-        with tempfile.TemporaryDirectory() as temp_dir:
-            for url in image_urls:
-                download_azure_image(url, temp_dir.name)
-
-            dls = ImageDataLoaders.from_lists(
-                temp_dir,
-                image_urls,
-                labels=labels,
-                valid_pct=0.2,
-                seed=42,
-                item_tfms=Resize(224),
-                bs=2,
-            )
-            learner = vision_learner(dls, squeezenet1_1, metrics=error_rate)
-            learner.fine_tune(1)
-            return learner
-    else:
-        dls = ImageDataLoaders.from_name_func(
-            initial_training_path,
-            get_image_files(initial_training_path),
-            valid_pct=0.2,
-            seed=42,
-            label_func=is_aria,
-            item_tfms=Resize(224),
-            bs=2,
-        )
-        learner = vision_learner(dls, squeezenet1_1, metrics=error_rate)
-        learner.fine_tune(1)
-        return learner
 
 
 @step(enable_cache=False)
